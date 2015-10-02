@@ -1,5 +1,5 @@
 #include "PS2.h"
-#define NOP 8
+#define NOP 10
 u16 Handkey;
 
 u8 Comd[2]={0x01,0x42};	//开始命令。请求数据

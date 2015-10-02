@@ -53,13 +53,45 @@ void TIM4_Mode_Config(void)
   TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
 	
 }
-void TIM4_CH3_Mode_Config(u16 CCR3_Val)
+void TIM4_CH1_Mode_Config(u16 CCR1_Val)
 {
 	
 	TIM_OCInitTypeDef  TIM_OCInitStructure;
 
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;	    //配置为PWM模式1
   TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;  //当定时器计数值小于CCR1_Val时为高电平
+	
+	/* PWM1 Mode configuration: Channel3 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR1_Val;	  //设置通道1的电平跳变值，输出另外一个占空比的PWM
+
+  TIM_OC1Init(TIM4, &TIM_OCInitStructure);	  //使能通道1
+  TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
+	
+}
+void TIM4_CH2_Mode_Config(u16 CCR2_Val)
+{
+	
+	TIM_OCInitTypeDef  TIM_OCInitStructure;
+
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;	    //配置为PWM模式1
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;  //当定时器计数值小于CCR2_Val时为高电平
+	
+	/* PWM1 Mode configuration: Channel3 */
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_Pulse = CCR2_Val;	  //设置通道2的电平跳变值，输出另外一个占空比的PWM
+
+  TIM_OC2Init(TIM4, &TIM_OCInitStructure);	  //使能通道2
+  TIM_OC2PreloadConfig(TIM4, TIM_OCPreload_Enable);
+	
+}
+void TIM4_CH3_Mode_Config(u16 CCR3_Val)
+{
+	
+	TIM_OCInitTypeDef  TIM_OCInitStructure;
+
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;	    //配置为PWM模式1
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;  //当定时器计数值小于CCR3_Val时为高电平
 	
 	/* PWM1 Mode configuration: Channel3 */
   TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
@@ -67,80 +99,151 @@ void TIM4_CH3_Mode_Config(u16 CCR3_Val)
 
   TIM_OC3Init(TIM4, &TIM_OCInitStructure);	  //使能通道3
   TIM_OC3PreloadConfig(TIM4, TIM_OCPreload_Enable);
-	
-
-  TIM_ARRPreloadConfig(TIM4, ENABLE);			 // 使能TIM4重载寄存器ARR
-  /* TIM4 enable counter */
-  TIM_Cmd(TIM4, ENABLE);                   //使能定时器4	
+		
 }
 void TIM4_CH4_Mode_Config(u16 CCR4_Val)
 {
 	TIM_OCInitTypeDef  TIM_OCInitStructure;
 
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;	    //配置为PWM模式1
-  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;  //当定时器计数值小于CCR1_Val时为高电平
-	
-	/* PWM1 Mode configuration: Channel3 */
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;  //当定时器计数值小于CCR4_Val时为高电平
   TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-  TIM_OCInitStructure.TIM_Pulse = CCR4_Val;	  //设置通道3的电平跳变值，输出另外一个占空比的PWM
+  TIM_OCInitStructure.TIM_Pulse = CCR4_Val;	  //设置通道4的电平跳变值，输出另外一个占空比的PWM
 
-  TIM_OC4Init(TIM4, &TIM_OCInitStructure);	  //使能通道3
+  TIM_OC4Init(TIM4, &TIM_OCInitStructure);	  //使能通道4
   TIM_OC4PreloadConfig(TIM4, TIM_OCPreload_Enable);
 
-  TIM_ARRPreloadConfig(TIM4, ENABLE);			 // 使能TIM4重载寄存器ARR
-  /* TIM4 enable counter */
-  TIM_Cmd(TIM4, ENABLE);                   //使能定时器4	
 }
 
 
 void TIM4_direction_gpio_config(void)
-{
+{	
 	GPIO_InitTypeDef GPIO_InitStructure; 
+  /* GPIOA clock enable */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA , ENABLE); 
 
-  /* GPIOA and GPIOB clock enable */
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE); 
-
-  GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7 ;
+  GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_8|GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_13 ;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;		    
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 
-  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
-	GPIO_ResetBits(GPIOC, GPIO_Pin_4);
-	GPIO_ResetBits(GPIOC, GPIO_Pin_5);
-	GPIO_ResetBits(GPIOC, GPIO_Pin_6);
-	GPIO_ResetBits(GPIOC, GPIO_Pin_7);
+	GPIO_ResetBits(GPIOA, GPIO_Pin_0);
+	GPIO_ResetBits(GPIOA, GPIO_Pin_1);
+	GPIO_ResetBits(GPIOA, GPIO_Pin_2);
+	GPIO_ResetBits(GPIOA, GPIO_Pin_3);
+	GPIO_ResetBits(GPIOA, GPIO_Pin_8);
+	GPIO_ResetBits(GPIOA, GPIO_Pin_11);
+	GPIO_ResetBits(GPIOA, GPIO_Pin_12);
+	GPIO_ResetBits(GPIOA, GPIO_Pin_13);
 	
 }
 
-void TIM4_CH3_direction_action(float pwm_in)
-{ 
-	pwm_in*=10;
-	if(pwm_in == 0)
-	{
-		GPIO_ResetBits(GPIOC, GPIO_Pin_4);
-		GPIO_ResetBits(GPIOC, GPIO_Pin_5);
-	}
-	if(pwm_in > 0)
-	{
-		GPIO_ResetBits(GPIOC, GPIO_Pin_4);
-		GPIO_SetBits(GPIOC, GPIO_Pin_5);
-		TIM4_CH3_Mode_Config((int)pwm_in);
-	}
-	if(pwm_in<0)
-	{
-		GPIO_ResetBits(GPIOC, GPIO_Pin_5);
-		GPIO_SetBits(GPIOC, GPIO_Pin_4);
-		TIM4_CH3_Mode_Config(-(int)pwm_in);
-	}
-}
 void TIM4_PWM_Init(void)
 {
 	TIM4_GPIO_Config();
 	TIM4_Mode_Config();
+	
+	TIM4_CH1_Mode_Config(0);
+	TIM4_CH2_Mode_Config(0);
 	TIM4_CH3_Mode_Config(0);
 	TIM4_CH4_Mode_Config(0);
+	
+	TIM_ARRPreloadConfig(TIM4, ENABLE);			 // 使能TIM4重载寄存器ARR
+  TIM_Cmd(TIM4, ENABLE);                   //使能定时器4	
+	
 	TIM4_direction_gpio_config();
+	
 }
+
+void TIM4_direction_action(int pwm_forward,int pwm_backward,int pwm_left,int pwm_right)
+{
+//判断pwm_forward	
+	if(pwm_forward == 0)
+	{
+		GPIO_ResetBits(GPIOA, GPIO_Pin_0);
+		GPIO_ResetBits(GPIOA, GPIO_Pin_1);
+	}
+	else 
+		if(pwm_forward > 0)
+		{
+			GPIO_ResetBits(GPIOA, GPIO_Pin_0);
+			GPIO_SetBits(GPIOA, GPIO_Pin_1);
+			TIM4_CH1_Mode_Config(pwm_forward);
+		}
+		else 
+			if(pwm_forward < 0)
+			{
+				GPIO_SetBits(GPIOA, GPIO_Pin_0);
+				GPIO_ResetBits(GPIOA, GPIO_Pin_1);
+				TIM4_CH1_Mode_Config(-pwm_forward);
+			}
+			
+//判断pwm_backward	
+	if(pwm_backward == 0)
+	{
+		GPIO_ResetBits(GPIOA, GPIO_Pin_2);
+		GPIO_ResetBits(GPIOA, GPIO_Pin_3);
+	}
+	else 
+		if(pwm_backward > 0)
+		{
+			GPIO_ResetBits(GPIOA, GPIO_Pin_2);
+			GPIO_SetBits(GPIOA, GPIO_Pin_3);
+			TIM4_CH2_Mode_Config(pwm_backward);
+		}
+		else 
+			if(pwm_backward < 0)
+			{
+				GPIO_SetBits(GPIOA, GPIO_Pin_2);
+				GPIO_ResetBits(GPIOA, GPIO_Pin_3);
+				TIM4_CH2_Mode_Config(-pwm_backward);
+			}
+			
+//判断pwm_left	
+	if(pwm_left == 0)
+	{
+		GPIO_ResetBits(GPIOA, GPIO_Pin_8);
+		GPIO_ResetBits(GPIOA, GPIO_Pin_11);
+	}
+	else 
+		if(pwm_left > 0)
+		{
+			GPIO_ResetBits(GPIOA, GPIO_Pin_8);
+			GPIO_SetBits(GPIOA, GPIO_Pin_11);
+			TIM4_CH3_Mode_Config(pwm_left);
+		}
+		else 
+			if(pwm_left < 0)
+			{
+				GPIO_SetBits(GPIOA, GPIO_Pin_8);
+				GPIO_ResetBits(GPIOA, GPIO_Pin_11);
+				TIM4_CH3_Mode_Config(-pwm_left);
+			}
+//判断pwm_right	
+	if(pwm_right == 0)
+	{
+		GPIO_ResetBits(GPIOA, GPIO_Pin_12);
+		GPIO_ResetBits(GPIOA, GPIO_Pin_13);
+	}
+	else 
+		if(pwm_right > 0)
+		{
+			GPIO_ResetBits(GPIOA, GPIO_Pin_12);
+			GPIO_SetBits(GPIOA, GPIO_Pin_13);
+			TIM4_CH4_Mode_Config(pwm_right);
+		}
+		else 
+			if(pwm_right < 0)
+			{
+				GPIO_SetBits(GPIOA, GPIO_Pin_12);
+				GPIO_ResetBits(GPIOA, GPIO_Pin_13);
+				TIM4_CH4_Mode_Config(-pwm_right);
+			}
+}
+
+
+
+
 
 /******************* (C) COPYRIGHT 2012  *****END OF FILE************/
