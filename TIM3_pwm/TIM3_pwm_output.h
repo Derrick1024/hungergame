@@ -16,7 +16,7 @@ void TIM3_CH2_Mode_Config(u16 CCR2_Val);
 void TIM3_CH3_Mode_Config(u16 CCR3_Val);
 void TIM3_CH4_Mode_Config(u16 CCR4_Val);
 void TIM3_direction_gpio_config(void);
-void TIM3_direction_action(int pwm_up_down);
+void TIM3_ud_action(int pwm_up_down);
 void TIM3_servo(u8 state);
 void TIM3_servo_deg(u8 deg);
 
