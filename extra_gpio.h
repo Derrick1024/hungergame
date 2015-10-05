@@ -20,6 +20,7 @@ void led_on(int a);
 void led_off(int a);
 int state_switch1(void);
 int state_switch2(void);
+void led_twinkle(void);
 
 
 

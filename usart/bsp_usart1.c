@@ -11,7 +11,7 @@ void USART1_Config(void)
 {
 		GPIO_InitTypeDef GPIO_InitStructure;
 		USART_InitTypeDef USART_InitStructure;
-		NVIC_InitTypeDef NVIC_InitStructure;
+//		NVIC_InitTypeDef NVIC_InitStructure;
 		
 		/* config USART1 clock */
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, ENABLE);
@@ -41,17 +41,17 @@ void USART1_Config(void)
 		
 		USART_Cmd(USART1, ENABLE);
 		
-		//Usart1 NVIC 配置
+//		//Usart1 NVIC 配置
 
-		NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);
-		NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
-		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0 ;
-		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;		//
+//		NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);
+//		NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+//		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0 ;
+//		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;		//
 
-		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQ通道使能
-		NVIC_Init(&NVIC_InitStructure);	//根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器USART1
-		
-		USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);//开启中断
+//		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQ通道使能
+//		NVIC_Init(&NVIC_InitStructure);	//根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器USART1
+//		
+//		USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);//开启中断
 }
 
 ///重定向c库函数printf到USART1

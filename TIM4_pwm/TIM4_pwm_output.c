@@ -46,7 +46,7 @@ void TIM4_Mode_Config(void)
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	/* Time base configuration */		 
   TIM_TimeBaseStructure.TIM_Period = 512;       //当定时器从0计数到999，即为1000次，为一个定时周期
-  TIM_TimeBaseStructure.TIM_Prescaler = 5;	    //设置预分频：不预分频，即为72MHz
+  TIM_TimeBaseStructure.TIM_Prescaler = 8;	    //设置预分频：不预分频，即为72MHz
   TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1 ;	//设置时钟分频系数：不分频
   TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //向上计数模式
 
@@ -124,7 +124,6 @@ void TIM4_direction_gpio_config(void)
 	GPIO_InitTypeDef GPIO_InitStructure; 
   /* GPIOA GPIOB clock enable */
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB , ENABLE); 
-
   GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_13 ;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;		    
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -224,15 +223,15 @@ void TIM4_left_action(int pwm_left)
 	else 
 		if(pwm_left > 0)
 		{
-			GPIO_ResetBits(GPIOA, GPIO_Pin_0);
-			GPIO_SetBits(GPIOA, GPIO_Pin_1);
+			GPIO_SetBits(GPIOA, GPIO_Pin_0);
+			GPIO_ResetBits(GPIOA, GPIO_Pin_1);
 			TIM4_CH3_Mode_Config(pwm_left);
 		}
 		else 
 			if(pwm_left < 0)
 			{
-				GPIO_SetBits(GPIOA, GPIO_Pin_0);
-				GPIO_ResetBits(GPIOA, GPIO_Pin_1);
+				GPIO_ResetBits(GPIOA, GPIO_Pin_0);
+				GPIO_SetBits(GPIOA, GPIO_Pin_1);
 				TIM4_CH3_Mode_Config(-pwm_left);
 			}
 }

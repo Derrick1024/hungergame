@@ -4,7 +4,7 @@
 void extra_gpio_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
-	
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC , ENABLE); 
 	//限位开关
 	GPIO_InitStructure.GPIO_Pin=GPIO_SWITCH1|GPIO_SWITCH2;
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_2MHz; 
@@ -104,6 +104,24 @@ int state_switch2(void)
 	{
 		return 0;
 	}
+}
+
+void led_twinkle(void)
+{
+		int led[5]={0},i;
+		
+			for(i=0;i<5;i++)
+			{
+				led[i]=1;
+			}
+			led_action(led);
+			Delay_ms(300);
+			for(i=0;i<5;i++)
+			{
+				led[i]=0;
+			}
+			led_action(led);
+			Delay_ms(300);
 }
 
 
