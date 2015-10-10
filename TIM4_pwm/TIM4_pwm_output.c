@@ -175,15 +175,15 @@ void TIM4_forward_action(int pwm_forward)
 	else 
 		if(pwm_forward > 0)
 		{
-			GPIO_ResetBits(GPIOB, GPIO_Pin_4);
-			GPIO_SetBits(GPIOB, GPIO_Pin_5);
+			GPIO_ResetBits(GPIOB, GPIO_Pin_5);
+			GPIO_SetBits(GPIOB, GPIO_Pin_4);
 			TIM4_CH1_Mode_Config(pwm_forward);
 		}
 		else 
 			if(pwm_forward < 0)
 			{
-				GPIO_SetBits(GPIOB, GPIO_Pin_4);
-				GPIO_ResetBits(GPIOB, GPIO_Pin_5);
+				GPIO_SetBits(GPIOB, GPIO_Pin_5);
+				GPIO_ResetBits(GPIOB, GPIO_Pin_4);
 				TIM4_CH1_Mode_Config(-pwm_forward);
 			}
 			
@@ -223,15 +223,15 @@ void TIM4_left_action(int pwm_left)
 	else 
 		if(pwm_left > 0)
 		{
-			GPIO_SetBits(GPIOA, GPIO_Pin_0);
-			GPIO_ResetBits(GPIOA, GPIO_Pin_1);
+			GPIO_ResetBits(GPIOA, GPIO_Pin_0);
+			GPIO_SetBits(GPIOA, GPIO_Pin_1);
 			TIM4_CH3_Mode_Config(pwm_left);
 		}
 		else 
 			if(pwm_left < 0)
 			{
-				GPIO_ResetBits(GPIOA, GPIO_Pin_0);
-				GPIO_SetBits(GPIOA, GPIO_Pin_1);
+				GPIO_SetBits(GPIOA, GPIO_Pin_0);
+				GPIO_ResetBits(GPIOA, GPIO_Pin_1);
 				TIM4_CH3_Mode_Config(-pwm_left);
 			}
 }

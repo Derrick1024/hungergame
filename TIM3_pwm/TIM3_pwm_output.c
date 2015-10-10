@@ -138,7 +138,7 @@ void TIM3_PWM_Init(void)
 	TIM3_Mode_Config();
 	
 //	TIM3_CH1_Mode_Config(0);
-	TIM3_CH2_Mode_Config(0);
+	TIM3_CH2_Mode_Config(450);
 	TIM3_CH3_Mode_Config(0);
 //	TIM3_CH4_Mode_Config(0);
 	
@@ -146,7 +146,7 @@ void TIM3_PWM_Init(void)
   TIM_Cmd(TIM3, ENABLE);                   //使能定时器3	
 	
 	TIM3_direction_gpio_config();
-	TIM3_servo(SERVO_ON);
+//	TIM3_servo(420);
 }
 //以上为基础初始化函数
 /********************************************************************************************/
@@ -156,18 +156,18 @@ void TIM3_PWM_Init(void)
 
 void TIM3_ud_action(int pwm_up_down)
 {
-	if(pwm_up_down == 0)
+	if((pwm_up_down >= -20) && (pwm_up_down <= 20))
 	{
 		GPIO_ResetBits(GPIOA, GPIO_Pin_11);
 		GPIO_ResetBits(GPIOA, GPIO_Pin_12);
 	}
-		if(pwm_up_down < 0)
+		if(pwm_up_down > 20)
 	{
 		GPIO_SetBits(GPIOA, GPIO_Pin_11);
 		GPIO_ResetBits(GPIOA, GPIO_Pin_12);
 		TIM3_CH3_Mode_Config(pwm_up_down);
 	}
-	if(pwm_up_down > 0)
+	if(pwm_up_down < -20)
 	{
 		GPIO_ResetBits(GPIOA, GPIO_Pin_11);
 		GPIO_SetBits(GPIOA, GPIO_Pin_12);
@@ -177,7 +177,7 @@ void TIM3_ud_action(int pwm_up_down)
 }
 
 //控制舵机的开合，state参数取值SERVO_ON(1)或SERVO_OFF(0)
-void TIM3_servo(u8 state)
+void TIM3_servo(uint16_t state)
 {
 	//SERVO_ON SERVE_OFF在h文件中有定义，为舵机张开的角度对应的pwm值，范围是179-539，中值是359
 	if(state)
@@ -190,7 +190,7 @@ void TIM3_servo(u8 state)
 	}
 }
 
-void TIM3_servo_deg(u8 deg)
+void TIM3_servo_deg(uint16_t deg)
 {
 	TIM3_CH2_Mode_Config(deg);
 	
