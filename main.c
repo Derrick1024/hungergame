@@ -79,24 +79,24 @@ int main(void)
 			{
 				pwm_forward=(int)((rx+lx)*2.6);
 				pwm_backward=(int)((rx-lx)*2.6);
-				pwm_left=(int)((ry-lx)*3.0);
-				pwm_right=(int)((ry+lx)*3.0);
-				if(pwm_forward>512)
-					pwm_forward=512;
-				if(pwm_forward<-508)
-					pwm_forward=-508;
-				if(pwm_backward>512)
-					pwm_backward=512;
-				if(pwm_backward<-508)
-					pwm_backward=-508;
-				if(pwm_left>512)
-					pwm_left=512;
-				if(pwm_left<-508)
-					pwm_left=-508;
-				if(pwm_right>512)
-					pwm_right=512;
-				if(pwm_right<-508)
-					pwm_right=-508;
+				pwm_left=(int)((ry-lx)*2.8);
+				pwm_right=(int)((ry+lx)*2.8);
+				if(pwm_forward>350)
+					pwm_forward=350;
+				if(pwm_forward<-350)
+					pwm_forward=-350;
+				if(pwm_backward>350)
+					pwm_backward=350;
+				if(pwm_backward<-350)
+					pwm_backward=-350;
+				if(pwm_left>350)
+					pwm_left=350;
+				if(pwm_left<-350)
+					pwm_left=-350;
+				if(pwm_right>350)
+					pwm_right=350;
+				if(pwm_right<-350)
+					pwm_right=-350;
 				pwm_ud=(ly-22)*20;
 			}					
 			if(state[2]==0)
@@ -115,7 +115,7 @@ int main(void)
 			}
 			if(state[1]==1)
 			{
-				TIM3_ud_action(1500);
+				TIM3_ud_action(800);
 				Delay_ms(100);
 				state[1]=-1;	
 			}

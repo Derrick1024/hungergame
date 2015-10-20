@@ -6,7 +6,7 @@
 #define SERVO_ON 1
 #define SERVO_OFF 0
 #define SERVO_ON_DEG 440
-#define SERVO_OFF_DEG 570
+#define SERVO_OFF_DEG 590
 
 
 void TIM3_PWM_Init(void);
